@@ -1,0 +1,1 @@
+# VoiceReview: Supabase Configuration
