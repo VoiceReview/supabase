@@ -1,6 +1,10 @@
+import AudioRecorder from "@/components/AudioRecorder";
+
 export default function Document() {
     return (
-      <div></div>
+      <div>
+        <AudioRecorder />
+      </div>
     );
   }
   
