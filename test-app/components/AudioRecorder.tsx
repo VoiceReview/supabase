@@ -1,5 +1,10 @@
 import React, { useState, useRef } from 'react';
 
+// On phone, the user will have to keep the button pressed to record 
+// and release it to stop recording.
+// On desktop, the user will have to click the button to start recording 
+// and click it again to stop recording.
+
 const AudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
