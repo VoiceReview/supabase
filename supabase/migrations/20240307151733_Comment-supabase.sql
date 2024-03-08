@@ -4,6 +4,10 @@ CREATE TABLE Comment (
   Comment_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   type VARCHAR(255) NOT NULL,
   user_id UUID NOT NULL,
+  likes INT DEFAULT 0,
+  dislikes INT DEFAULT 0,
+  parent_id UUID,
+  child_id UUID,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
   deleted_at TIMESTAMP WITH TIME ZONE
 );
