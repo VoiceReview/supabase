@@ -22,18 +22,18 @@ type TextComment = {
     text: string,
 }
 
-type CreateAudioComment = {
+export type CreateAudioComment = {
     audio_blob: Blob,
     comment_id: string,
     content_type: string,
 }
 
-type CreateTextComment = {
+export type CreateTextComment = {
     text: string,
     comment_id: string,
 }
 
-type CreateComment = {
+export type CreateComment = {
     user_id: string, // Assuming the ReturnType of crypto.randomUUID is string
 } & (
         { type: "audio" } & CreateAudioComment | // Combine "audio" type with CreateAudioComment
