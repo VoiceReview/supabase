@@ -102,7 +102,65 @@ textRouter
         };
         ctx.response.status = 201;
         return;
-    });
+    })
+    .delete("/comments/text/:comment_id", supabaseMiddleware, async (ctx) => {
+        const supabaseClient = ctx.supabaseClient;
+        const userData = ctx.userData;
+        const comment_id = ctx.params.comment_id;
+
+        const { data: commentData, error: commentError } = await supabaseClient
+            .from("comments")
+            .select("*")
+            .eq("comment_id", comment_id)
+            .single();
+
+        if (commentError) {
+            ctx.response.body = {
+                error: commentError
+            },
+            ctx.response.status = 404;
+            return;
+        }
+
+        if (commentData.user_id !== userData?.id) {
+            ctx.response.status = 401;
+            ctx.response.body = {
+                error: "Unauthorized",
+            };
+            return;
+        }
+
+        const { data: textData, error: textError } = await supabaseClient
+            .from("texts")
+            .delete()
+            .eq("comment_id", comment_id);
+        
+        if (textError) {
+            ctx.response.body = {
+                error: textError
+            },
+            ctx.response.status = 404;
+            return;
+        }
+
+        const { data: commentDeleteData, error: commentDeleteError } = await supabaseClient
+            .from("comments")
+            .delete()
+            .eq("comment_id", comment_id);
+
+        if (commentDeleteError) {
+            ctx.response.body = {
+                error: commentDeleteError
+            },
+            ctx.response.status = 404;
+            return;
+        }
+
+        ctx.response.body = {
+            data: commentDeleteData
+        }
+        ctx.response.status = 200;
+    })
 
 
 export default textRouter;
