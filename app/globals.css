@@ -1,0 +1,82 @@
+/* Active les styles de base, composants et utilitaires Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+
+
+
+.wt-title {
+  @apply text-3xl font-bold underline mb-10;
+}
+
+nav.principal{
+  place-content: center;
+  display: grid;
+}
+
+.shadow-button-set {
+  margin: 0;
+  display: inline;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5vmin;
+  
+  & > li {
+    display: inline-flex;
+    background: black;
+    margin-right: 10px;
+    
+    &:is(:hover, :focus-within) > button:not(:active) {
+      --distance: -10px;
+    }
+  }
+  
+  & button {
+    appearance: none;
+    outline: none;
+    font-size: 3vmin;
+    border: 2px solid black;
+    background: white;
+    
+    --distance: 0;
+    transform: translateX(var(--distance)) translateY(var(--distance));
+    
+    @media (prefers-reduced-motion: no-preference) {
+      will-change: transform;
+      transition: transform .2s ease ;
+    }
+  }
+}
+
+
+/* Ajoutez ceci à votre fichier globals.css ou à un module CSS dédié */
+
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  transition: color 0.25s ease-in-out;
+  text-decoration: none; /* Désactive le soulignement par défaut */
+
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0; /* Commence avec une largeur de 0 pour que le soulignement soit invisible initialement */
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: blue; /* La couleur de votre soulignement */
+  transition: width 0.25s ease-in-out; /* Transition pour l'effet de fondu en largeur */
+}
+
+.nav-link:hover::after {
+  width: 100%; /* La largeur devient 100% au survol pour afficher le soulignement */
+}
